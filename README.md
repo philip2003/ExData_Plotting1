@@ -1,6 +1,6 @@
 ## Exploratory Data Analysis
 ## Week 1 Assignment 1
-## Introduction (please note amendment: 'Forgot to add"
+## Introduction (please note amendment in 'figure')
 
 This assignment uses data from
 the <a href="http://archive.ics.uci.edu/ml/">UC Irvine Machine
