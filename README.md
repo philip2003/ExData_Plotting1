@@ -1,3 +1,5 @@
+## Exploratory Data Analysis
+## Week 1 Assignment 1
 ## Introduction
 
 This assignment uses data from
