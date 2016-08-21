@@ -1,1 +1,91 @@
-Preparatory Script
+# Week Exploratory Data Analysis - Weel 1 Assignment 1 
+# Computer memory ok
+# Set working directory
+# Dataset: Electric power consumption [20Mb] 
+# Data connection: https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip
+
+# Step 1 - Data Download
+setwd('/Desktop/HomePowerResearch')
+if(!file.exists('data')) dir.create('data')
+fileUrl <- 'https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip'
+download.file(fileUrl, destfile = './data/household_power_consumption.zip')
+unzip('./data/household_power_consumption.zip', exdir = './data')
+
+# Step 2 - Enter data into R. I am only be using data from the dates 2007-02-01 and 2007-02-02. 
+files <- file('./data/household_power_consumption.txt')
+data <- read.table(text = grep("^[1,2]/2/2007",readLines(files),value=TRUE), sep = ';', col.names = c("Date", "Time", "Global_active_power", "Global_reactive_power", "Voltage", "Global_intensity", "Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), na.strings = '?')
+
+# Please Note: Steps 3 and 4 are not required for the assignment but I wanted to gain an understanding of the data before plotting.
+
+# Step 3 - Preview Data
+head(data)
+View(data)
+
+# Step 4 - Preview Data
+library(Hmisc)
+describe(data) 
+
+# Function reveals:
+# -------------------------------------------------------------------------------------------------------------------------------
+# DATA ANALYSIS
+# -------------------------------------------------------------------------------------------------------------------------------
+# 
+# 9  Variables      2880  Observations
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Date 
+# n missing  unique 
+# 2880       0       2 
+# 
+# 1/2/2007 (1440, 50%), 2/2/2007 (1440, 50%) 
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Time 
+# n missing  unique 
+# 2880       0    1440 
+# 
+# lowest : 00:00:00 00:01:00 00:02:00 00:03:00 00:04:00, highest: 23:55:00 23:56:00 23:57:00 23:58:00 23:59:00 
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Global_active_power 
+# n missing  unique    Info    Mean     .05     .10     .25     .50     .75     .90     .95 
+# 2880       0     923       1   1.213   0.228   0.234   0.320   1.060   1.688   2.769   3.307 
+# 
+# lowest : 0.220 0.222 0.224 0.226 0.228, highest: 5.448 5.606 5.810 6.536 7.482 
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Global_reactive_power 
+# n missing  unique    Info    Mean     .05     .10     .25     .50     .75     .90     .95 
+# 2880       0     167    0.96  0.1006  0.0000  0.0000  0.0000  0.1040  0.1440  0.2320  0.2561 
+# 
+# lowest : 0.000 0.046 0.048 0.050 0.052, highest: 0.488 0.490 0.492 0.494 0.500 
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Voltage 
+# n missing  unique    Info    Mean     .05     .10     .25     .50     .75     .90     .95 
+# 2880       0     945       1   240.4   236.2   237.0   238.4   240.6   242.4   243.4   243.9 
+# 
+# lowest : 233.1 233.6 233.6 233.7 233.8, highest: 245.5 245.7 246.1 246.4 246.6 
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Global_intensity 
+# n missing  unique    Info    Mean     .05     .10     .25     .50     .75     .90     .95 
+# 2880       0     107    0.99   5.102     1.0     1.0     1.4     4.6     7.0    11.6    14.0 
+# 
+# lowest :  1.0  1.2  1.4  1.6  1.8, highest: 23.4 23.8 24.4 27.6 32.0 
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Sub_metering_1 
+# n missing  unique    Info    Mean 
+# 2880       0       8    0.12  0.4062 
+# 
+# 0  1  2 17 19 27 37 38
+# Frequency 2764 70 16  1  1  1 21  6
+# %           96  2  1  0  0  0  1  0
+# -------------------------------------------------------------------------------------------------------------------------------
+#         Sub_metering_2 
+# n missing  unique    Info    Mean 
+# 2880       0       3    0.48  0.2576 
+# 
+# 0 (2305, 80%), 1 (408, 14%), 2 (167, 6%) 
+# -------------------------------------------------------------------------------------------------------------------------------
+#        Sub_metering_3 
+# n missing  unique    Info    Mean     .05     .10     .25     .50     .75     .90     .95 
+# 2880       0      15    0.84   8.501       0       0       0       0      17      18      18 
+# 
+# 0 1 2 3 4 5 6 7 8 9 13 16  17  18 19
+# Frequency 1471 1 1 2 1 1 1 1 1 2  2  6 737 632 21
+# %           51 0 0 0 0 0 0 0 0 0  0  0  26  22  1
